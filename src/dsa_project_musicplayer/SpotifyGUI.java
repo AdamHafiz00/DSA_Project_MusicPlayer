@@ -14,8 +14,9 @@ import javax.swing.JOptionPane;
 public class SpotifyGUI extends javax.swing.JFrame {
 
     private MyQueue upNextQueue;
-    private Stack<String> historyStack;
+    private Stack<String> historyStack, tempStack;
     private String currentSong = "No Song Playing";
+
     /**
      * Creates new form SpotifyGUI
      */
@@ -23,7 +24,8 @@ public class SpotifyGUI extends javax.swing.JFrame {
         initComponents();
         upNextQueue = new MyQueue();
         historyStack = new Stack<>();
-        
+        tempStack = new Stack<>();
+
         updateDisplay(); // Show initial state
     }
 
@@ -45,6 +47,11 @@ public class SpotifyGUI extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnPlayNext = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtTemp = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +88,16 @@ public class SpotifyGUI extends javax.swing.JFrame {
             }
         });
 
+        txtTemp.setColumns(20);
+        txtTemp.setRows(5);
+        jScrollPane3.setViewportView(txtTemp);
+
+        jLabel1.setText("temp Stack");
+
+        jLabel2.setText("Queue");
+
+        jLabel3.setText("History Stack");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,13 +109,26 @@ public class SpotifyGUI extends javax.swing.JFrame {
                         .addComponent(btnAdd)
                         .addGap(39, 39, 39)
                         .addComponent(btnPlayNext)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblCurrent)
                                 .addGap(88, 88, 88)
@@ -112,16 +142,28 @@ public class SpotifyGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCurrent))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(4, 4, 4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(6, 6, 6)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnPlayNext)
                     .addComponent(btnBack))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         pack();
@@ -129,81 +171,67 @@ public class SpotifyGUI extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         String songName = txtInput.getText().trim();
-        
+
         if (songName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a song name!");
             return;
         }
 
         if (upNextQueue.full()) {
-            // RUBRIC: Handling Edge Case (Queue Full)
+
             JOptionPane.showMessageDialog(this, "Queue is Full! Wait for songs to finish.");
         } else {
             upNextQueue.enqueue(songName);
             txtInput.setText(""); // Clear input
             updateDisplay();
         }
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnPlayNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayNextActionPerformed
-       
-     if (upNextQueue.empty()) {
-                // RUBRIC: Handling Edge Case (Queue Empty)
-                JOptionPane.showMessageDialog(this, "Up Next is Empty! Add songs first.");
-            } else {
-                // If a song is currently playing, move it to History Stack first
-                if (!currentSong.equals("No Song Playing")) {
-                    historyStack.push(currentSong);
-                }
 
-                // Get next song from Queue (FIFO)
-                currentSong = upNextQueue.dequeue();
-                updateDisplay();
+        if (!upNextQueue.empty()) {
+            if (!currentSong.equals("No Song Playing")){
+                historyStack.push(currentSong);
             }
+           
+            currentSong = upNextQueue.dequeue();
+            updateDisplay();
+        } else if (!tempStack.empty()) {
+            historyStack.push(currentSong);
+            currentSong = tempStack.pop();
+            updateDisplay();
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Up Next is Empty! Add songs first.");
+
+        }
 
 
-
-        
     }//GEN-LAST:event_btnPlayNextActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-if (historyStack.isEmpty()) {
+       if (historyStack.empty()) {
             // RUBRIC: Handling Edge Case (Stack Empty)
             JOptionPane.showMessageDialog(this, "No history to go back to!");
         } else {
-            // --- FIX START: Save the current song before leaving it! ---
-            if (!currentSong.equals("No Song Playing")) {
-                if (!upNextQueue.full()) {
-                    // Put the song we are leaving back into the Queue so it's not lost
-                    upNextQueue.enqueue(currentSong);
-                } else {
-                    // Optional: Warn user if Queue is full, or just proceed
-                    System.out.println("Warning: Queue full, current song lost on Back action.");
-                }
-            }
-            // --- FIX END ---
-
-            // Pop the last song from Stack (LIFO)
+        
+            tempStack.push(currentSong);
             String previousSong = historyStack.pop();
-            
-            // Put current song back to front of queue (Optional logic, keeps flow smooth)
-            // But for simple Back logic, we just play the previous song
-            currentSong = previousSong;
+           currentSong = previousSong;
             updateDisplay();
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
-    
     private void updateDisplay() {
         lblCurrent.setText("Now Playing: " + currentSong);
         txtQueue.setText(upNextQueue.toString());
-        txtHistory.setText(historyStack.toString());    
+        txtHistory.setText(historyStack.toString());
+        txtTemp.setText(tempStack.toString());
     }
+
     /**
      * @param args the command line arguments
      */
@@ -243,11 +271,16 @@ if (historyStack.isEmpty()) {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnPlayNext;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblCurrent;
     private javax.swing.JTextArea txtHistory;
     private javax.swing.JTextField txtInput;
     private javax.swing.JTextArea txtQueue;
+    private javax.swing.JTextArea txtTemp;
     // End of variables declaration//GEN-END:variables
 }
